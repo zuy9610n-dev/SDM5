@@ -11,3 +11,38 @@
 /deep-thinking
 
 設計書をもとにコーディングしてください。
+
+---
+
+## 実装: SDM-REACT 初期版 (設計書 v1.0, §26 Stage 0–2, §30)
+
+`SDM-REACT_設計書.md` に従い、一つの作製介入について
+作製条件→反応予測→冷却・測定→検証→実験選択を縦断する小さな一連の系を実装した。
+研究開発用の設計仕様の実装であり、実験検証済みではない (設計書 §0)。
+実験温度・保持時間・粒径・配合・物性値の既定値は含まない。
+
+### 構成
+
+| モジュール | ファイル | 設計書 |
+|---|---|---|
+| GoalCompiler | `src/sdm_react/goals.py` | §5 |
+| ProcessState | `src/sdm_react/process.py` | §8 |
+| ScopeAudit | `src/sdm_react/scope.py` | §7 |
+| Reachability | `src/sdm_react/reachability.py` | §9 |
+| ReactionSolver | `src/sdm_react/reaction.py`, `inventory.py` | §10–§13 |
+| ObservationSolver | `src/sdm_react/observation.py` | §14 |
+| AlternativeExplorer | `src/sdm_react/alternatives.py` | §15 |
+| EvidenceStore | `src/sdm_react/evidence.py` | §18–§19 |
+| ExperimentPlanner | `src/sdm_react/planner.py` | §16–§17, §20, §23.3 |
+| Validation | `src/sdm_react/validation.py` | §21, §25 |
+| 全体連鎖 | `src/sdm_react/pipeline.py` | §6, §29 |
+
+詳細は `docs/ARCHITECTURE.md` を参照。
+
+### 実行
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/ -q
+python examples/stage0_first_question.py  # §27 第一版の研究課題のデモ
+```
